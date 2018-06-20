@@ -71,7 +71,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('articles.edit', compact('article', 'id'));
     }
 
     /**
@@ -83,7 +84,19 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $this->validate(request(), [
+            'title' => 'required|string|max:191',
+            'slug' => 'required|string|alpha_dash|max:191|unique:articles',
+            'text' => 'required|string|max:65000',
+        ]);
+        $article->title = $request->get('title');
+        $article->slug = $request->get('slug');
+        $article->text = $request->get('text');
+        $article->save();
+        return redirect()
+            ->route('articles.edit', compact('article'))
+            ->with('success', 'Статья была успешно отредактирована');
     }
 
     /**
@@ -94,6 +107,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+        $article->delete();
+        return redirect('articles')->with('success', 'Статья успешно удалена!');
     }
 }

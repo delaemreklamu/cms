@@ -15,7 +15,7 @@
         <tbody>
             @foreach ($articles as $article)
                 <tr>
-                    <td>{{ $article->name }}</td>
+                    <td>{{ $article->title }}</td>
                     <td>{{ $article->slug }}</td>
                     <td>
                         <a class="btn btn-warning" href=" {{ route( 'articles.edit', compact('article') ) }}">Редактировать</a>
