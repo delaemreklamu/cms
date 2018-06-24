@@ -87,7 +87,7 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $this->validate(request(), [
             'title' => 'required|string|max:191',
-            'slug' => 'required|string|alpha_dash|max:191|unique:articles',
+            'slug' => 'required|string|alpha_dash|max:191',
             'text' => 'required|string|max:65000',
         ]);
         $article->title = $request->get('title');

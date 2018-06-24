@@ -18,10 +18,17 @@
     </div>
     @endif
 
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+      <p>{{ \Session::get('success')}}</p>
+    </div>
+    @endif
+
 
     <form method="post" action="{{action('ArticleController@update', $id)}}">
       
             {{ csrf_field() }}
+            {{ method_field('PATCH') }}
 
                 <div class="form-group">
                   <label for="title">Заголовок:</label>
