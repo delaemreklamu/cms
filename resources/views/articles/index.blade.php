@@ -4,6 +4,14 @@
 
 <div class="container">
     <h2>Статьи <a class="btn btn-primary pull-right" href=" {{ route( 'articles.create') }}">Создать</a></h2>
+    
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+      <p>{{ \Session::get('success')}}</p>
+    </div>
+    @endif
+
+    
     <table class="table table-striped">
         <thead>
             <tr>

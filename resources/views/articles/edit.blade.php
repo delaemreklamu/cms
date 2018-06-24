@@ -44,7 +44,12 @@
               </div>
                 <div class="form-group">                  
                     <input type="submit" class="btn btn-success" value="Сохранить">
-              </div>
+                    <form action="{{action('ArticleController@destroy', $article['id'])}}" method="post">
+                        {{csrf_field()}}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button class="btn btn-danger pull-right" type="submit">Delete</button>
+                      </form>
+                  </div>
              
             </form>
 </div><!-- /.container -->
