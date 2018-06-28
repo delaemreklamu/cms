@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller
 {
@@ -44,23 +45,12 @@ class ArticleController extends Controller
                 'text' => 'required|string|max:65000',
             ]
         );
-        // dd($input);
+        
         $article = Article::create($input);
 
         return redirect()
             ->route('articles.edit', compact('article'))
             ->with('success', 'Статья была успешно добавлена');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -71,7 +61,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::find($id);
+        $article = Article::findOrFail($id);
         return view('articles.edit', compact('article', 'id'));
     }
 
@@ -87,7 +77,7 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $this->validate(request(), [
             'title' => 'required|string|max:191',
-            'slug' => 'required|string|alpha_dash|max:191',
+            'slug' => ['required', 'string', 'alpha_dash', 'max:191', Rule::unique('articles')->ignore($article->id)],
             'text' => 'required|string|max:65000',
         ]);
         $article->title = $request->get('title');
@@ -107,7 +97,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::find($id);
+        $article = Article::findOrFail($id);
         $article->delete();
         return redirect('articles')->with('success', 'Статья успешно удалена!');
     }

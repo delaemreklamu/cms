@@ -30,15 +30,15 @@
 
                 <div class="form-group">
                   <label for="title">Заголовок:</label>
-                  <input  class="form-control" id="title" name="title">
+                  <input  class="form-control" id="title" name="title" value="{{ old('title') }}">
               </div>
                 <div class="form-group">
                   <label for="slug">Слаг:</label>
-                  <input  class="form-control" id="slug" name="slug">
+                  <input  class="form-control" id="slug" name="slug" value="{{ old('slug') }}">
               </div>
                 <div class="form-group">
                   <label for="text">Текст:</label>
-                  <textarea  class="form-control" id="text" name="text"></textarea>
+                  <textarea  class="form-control" id="text" name="text">{{ old('text') }}</textarea>
               </div>
                 <div class="form-group">                  
                     <input type="submit" class="btn btn-success" value="Сохранить">
