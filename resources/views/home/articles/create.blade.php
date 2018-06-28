@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('home.app')
 
 @section('content')
 
@@ -24,7 +24,7 @@
     </div>
     @endif
 
-    <form method="post" action="{{ route('articles.store') }}">
+    <form method="post" action="{{ route('home.articles.store') }}">
       
             {{ csrf_field() }}
 

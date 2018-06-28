@@ -1,9 +1,9 @@
-@extends('layout')
+@extends('home.app')
 
 @section('content')
 
 <div class="container">
-    <h2>Редактирование статьи <a class="btn btn-warning pull-right" href=" {{ route( 'articles.index') }}">Выход</a>
+    <h2>Редактирование статьи <a class="btn btn-warning pull-right" href=" {{ route('home.articles.index') }}">Выход</a>
                     
     </h2>
     {{-- Ошибки формы --}}
@@ -26,7 +26,7 @@
     @endif
 
 
-    <form method="post" action="{{action('ArticleController@update', $id)}}">
+    <form method="post" action="{{ route('home.articles.update', compact('article')) }}">
       
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
@@ -47,8 +47,8 @@
                     <input type="submit" class="btn btn-success" value="Сохранить">                    
                     
                   </form>
-                    <form action="{{action('ArticleController@destroy', $article['id'])}}" method="post">
-                        {{csrf_field()}}
+                    <form action="{{ route('home.articles.destroy', compact('article')) }}" method="post">
+                        {{ csrf_field() }}
                         <input name="_method" type="hidden" value="DELETE">
                         <button class="btn btn-danger pull-right" type="submit">Удалить</button> 
                       </form>

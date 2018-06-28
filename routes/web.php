@@ -15,4 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('articles', 'ArticleController');
+
+
+
+
+Route::group(['namespace' => 'Home', 'prefix' => 'home', 'as' => 'home.', 'middleware' => 'auth'], function () {
+    Route::get('/', ['as' => 'index', 'uses' =>  'HomeController@index']);
+    Route::resource('articles', 'ArticleController', ['except' => ['show']]);
+});
+
+
+
+Auth::routes();

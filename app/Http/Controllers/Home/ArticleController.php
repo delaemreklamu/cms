@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Home;
+
+use App\Http\Controllers\Controller;
+
 
 use Illuminate\Http\Request;
 use App\Article;
@@ -16,7 +19,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all();
-        return view('articles.index', compact('articles'));
+        return view('home.articles.index', compact('articles'));
     }
 
     /**
@@ -26,7 +29,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('home.articles.create');
     }
 
     /**
@@ -49,7 +52,7 @@ class ArticleController extends Controller
         $article = Article::create($input);
 
         return redirect()
-            ->route('articles.edit', compact('article'))
+            ->route('home.articles.edit', compact('article'))
             ->with('success', 'Статья была успешно добавлена');
     }
 
@@ -62,7 +65,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::findOrFail($id);
-        return view('articles.edit', compact('article', 'id'));
+        return view('home.articles.edit', compact('article', 'id'));
     }
 
     /**
@@ -84,9 +87,8 @@ class ArticleController extends Controller
         $article->slug = $request->get('slug');
         $article->text = $request->get('text');
         $article->save();
-        return redirect()
-            ->route('articles.edit', compact('article'))
-            ->with('success', 'Статья была успешно отредактирована');
+
+        return back()->with('success', 'Статья была успешно отредактирована');
     }
 
     /**
@@ -99,6 +101,8 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         $article->delete();
-        return redirect('articles')->with('success', 'Статья успешно удалена!');
+        
+        return redirect()
+            ->route('home.articles.index')->with('success', 'Статья успешно удалена!');
     }
 }

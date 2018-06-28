@@ -1,9 +1,9 @@
-@extends('layout')
+@extends('home.app')
 
 @section('content')
 
 <div class="container">
-    <h2>Статьи <a class="btn btn-primary pull-right" href=" {{ route( 'articles.create') }}">Создать</a></h2>
+    <h2>Статьи <a class="btn btn-primary pull-right" href=" {{ route( 'home.articles.create') }}">Создать</a></h2>
     
     @if (\Session::has('success'))
     <div class="alert alert-success">
@@ -26,7 +26,7 @@
                     <td>{{ $article->title }}</td>
                     <td>{{ $article->slug }}</td>
                     <td>
-                        <a class="btn btn-warning" href=" {{ route( 'articles.edit', compact('article') ) }}">Редактировать</a>
+                        <a class="btn btn-warning" href=" {{ route('home.articles.edit', compact('article')) }}">Редактировать</a>
                     </td>
                     
                 </tr>
